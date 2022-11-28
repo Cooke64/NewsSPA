@@ -1,0 +1,68 @@
+import React, {useState, useEffect} from 'react'
+import MyButtons from '../components/UI/buttons/MyButtons';
+import MyInput from '../components/UI/input/MyInput';
+import axios from 'axios';
+import { useParams} from 'react-router-dom'
+import { Navigate } from 'react-router-dom';
+
+export default function EditPost(create) {
+  
+  const {id} = useParams();
+  const url = `http://127.0.0.1:8000/api/posts/` + id
+  const [postEdit, setPostEdit] = useState({
+    title: '',
+    body: ''
+
+  })
+  
+  function getPost () {
+    const data = axios.get(url)
+    data.then(function(res) {
+      setPostEdit(res.data)
+    })
+  }
+
+  useEffect(() => {
+    getPost()
+  }, [id])
+
+ function putPostData () {
+  
+    axios({
+      method: 'put',
+      url: url,
+      data: postEdit,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(function(response) {
+      (<Navigate to={url} replace={true} />)
+      console.log('Ответ сервера успешно получен!');
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+  }
+
+  return (
+    <div>
+      <div className="mb-3">
+        <form onSubmit={putPostData}>
+            <MyInput 
+              
+                defaultValue={postEdit.title}
+                onChange={e => setPostEdit({...postEdit, title: e.target.value})} 
+
+            />
+            <MyInput
+                
+                defaultValue={postEdit.body}
+                onChange={e => setPostEdit({...postEdit, body: e.target.value})}  
+            />
+            <MyButtons>Обновить</MyButtons>
+    </form>
+  </div>
+    </div>
+  )
+}

@@ -1,0 +1,31 @@
+import { routes, privateRoutes,  } from "./pages/routes";
+import { AuthContext } from "./utils/context";
+import { useState, useEffect } from "react";
+import AppRouter from "./pages/AppRouter";
+
+
+function App() {
+  const [isAuth, setisAuth] = useState({
+    isUser: false,
+    username: ''
+  })
+  
+  const linkArray = () => isAuth.isUser ? privateRoutes : routes
+
+  useEffect(()=>{
+    if (localStorage.getItem('token')){
+          setisAuth({isUser: true, username: })
+  }}, [])
+
+  return (
+    <AuthContext.Provider value={{
+          isAuth,
+          setisAuth
+    }}>
+        <AppRouter linkArray={linkArray()}/>
+    </AuthContext.Provider>
+
+    
+  )
+}
+export default App;
