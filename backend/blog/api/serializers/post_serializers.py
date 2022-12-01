@@ -25,6 +25,14 @@ class TagListSerializer(serializers.ModelSerializer):
         fields = ('title', 'slug')
 
 
+class TagCreateSerializer(serializers.ModelSerializer):
+    slug = serializers.CharField(read_only=True)
+
+    class Meta:
+        model = Tag
+        fields = ('title', 'slug')
+
+
 class GroupSerializer(serializers.ModelSerializer):
 
     class Meta:

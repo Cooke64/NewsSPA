@@ -56,6 +56,6 @@ class FavoriteAdmin(admin.ModelAdmin):
 
 
 @admin.register(Rating)
-class FavoriteAdmin(admin.ModelAdmin):
+class RatingAdmin(admin.ModelAdmin):
     list_display = ('user', 'post', 'star_rating')
     list_filter = ('user', 'post', 'star_rating')

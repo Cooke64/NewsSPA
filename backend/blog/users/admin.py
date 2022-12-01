@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from users.models import User, Profile
+from users.models import User, Profile, Follow
 
 
 @admin.register(User)
@@ -23,7 +23,6 @@ class UserAdmin(UserAdmin):
     )
 
 
-
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = (
@@ -41,3 +40,10 @@ class ProfileAdmin(admin.ModelAdmin):
 
     username.short_description = 'Логин пользователя'
     email.short_description = 'Email пользователя'
+
+
+@admin.register(Follow)
+class FollowAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'author')
+    list_display_links = ('user',)
+    search_fields = ('user',)

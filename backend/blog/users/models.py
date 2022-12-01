@@ -70,3 +70,20 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class Follow(models.Model):
+    author = models.ForeignKey('User', on_delete=models.CASCADE,
+                               related_name='follower', verbose_name='На кого')
+    user = models.ForeignKey('User', on_delete=models.CASCADE,
+                             related_name='subscriber', verbose_name='Кто')
+
+    class Meta:
+        verbose_name = 'Подписка'
+        verbose_name_plural = 'Подписки'
+        constraints = [
+            models.UniqueConstraint(
+                fields=('user', 'author'),
+                name='unique_user_follow'
+            )
+        ]

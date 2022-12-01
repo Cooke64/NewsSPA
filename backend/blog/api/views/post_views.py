@@ -13,7 +13,7 @@ from api.serializers.post_serializers import (
     CommentSerializer,
     RatingSerializer,
     PostCreateSerializer,
-    PostToShowSerializer
+    PostToShowSerializer, TagCreateSerializer
 )
 from posts.models import Post, Tag, Group, Favorite, Rating
 
@@ -79,6 +79,11 @@ class PostViewSet(viewsets.ModelViewSet):
 class TagsViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
+
+    def get_serializer_class(self):
+        if self.request.method in ('POST', 'PATCH'):
+            return TagCreateSerializer
+        return TagSerializer
 
 
 class GroupViewSet(viewsets.ModelViewSet):
