@@ -12,8 +12,7 @@ import AuthorList from "./AuthorList";
 import RequiredAuth from './RoutMaker'
 import Groups from './Groups';
 import UserPage from './MarketPage';
-import MarketPage from './MarketPage';
-import Cart from './Cart';
+
 
 export default function ApprRoutes () {
 
@@ -27,8 +26,6 @@ export default function ApprRoutes () {
           <Route path="/contact" element={<Contact />} />
           <Route path="/post/:id" element={<CurrentPost />} />
           <Route path="/groups" element={<Groups />} />
-          <Route path="/market" element={<MarketPage />} />
-          <Route path="/cart" element={<Cart />} />
   
           {/* Protected urls */}
           <Route element={<RequiredAuth  />}>
