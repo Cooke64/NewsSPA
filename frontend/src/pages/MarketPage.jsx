@@ -1,6 +1,14 @@
 import React from 'react'
 import GoodItem from 'components/GoodItem'
+import {Row} from "react-bootstrap";
+import {Container} from "react-bootstrap";
+import Col from "react-bootstrap/Col";
+import Sidebar from 'components/Sidebar';
+
+
 export default function MarketPage() {
+
+  const [active, setActive] = React.useState('')
 
   const goods = [
     { name: 'some name',
@@ -15,17 +23,35 @@ export default function MarketPage() {
       price: 555
     }
   ]
+  const categories = [
+    {
+      name: 'Goods'
+    },
+    {
+      name: 'Heyyouds'
+    },
+  ]
 
+  const setCategory = (type) => {
+    setActive(type)
+  }
   return (
-    <div className="w-50 my-md-3 mx-auto">
-      <div className="">
-        {
-          goods.map(item => (
-            <GoodItem item={item} key={item.price}/>
-          ))
-        }
-      <div className="bg-body shadow-sm mx-auto"/>
-    </div>
-  </div>
+    <Container>
+            <Row className="mt-2">
+                <Col md={3}>
+                    <Sidebar setCategory={setCategory} categories={categories} active={active}/>
+                </Col>
+                <Col md={9}>
+                  <Row>
+                      {
+                      goods.map(item => (
+                      <GoodItem item={item} key={item.price}/>
+                      ))
+                      }
+                  </Row>
+                </Col>
+            </Row>
+        </Container>
+
   )
 }

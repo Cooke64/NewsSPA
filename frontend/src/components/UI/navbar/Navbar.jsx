@@ -1,51 +1,57 @@
 import React, {useContext}  from 'react'
 import AuthContext from '../../../utils/context'
 import { NavLink } from 'react-router-dom'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Navbar, Container, Nav } from 'react-bootstrap';
 
 
-
-
-export default function Contact() {
+export default function Contact({cart}) {
   const {isAuth, setisAuth} = useContext(AuthContext)
 
+  
   const logout = () => {
     localStorage.removeItem('token',)
     setisAuth({isUser: false, username: ''})
   }
   
   return (
-      <nav className="navbar navbar-expand navbar-dark bg-info">
-          <NavLink to="/" className="navbar-brand">
+    <Navbar bg="light" variant="light" expand="lg">
+    <Container>
+      <NavLink to="/" className="navbar-brand">
             MyBlopg Page
-              </NavLink>
-            <div className="navbar-nav mr-auto">
-            <ul className="nav justify-content-center">
-              <li className="nav-item">
-                  <NavLink to="/" className="nav-link">Посты</NavLink>
-              </li>
-              <li className="nav-item">
-                  <NavLink to="/groups" className="nav-link">Группы</NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to="/contact" className="nav-link">Контакты</NavLink>
-              </li>
-              
-                {isAuth.isUser
-                ?
-                <li className="nav-item">
-                    <NavLink onClick={logout} className="nav-link">{isAuth.username}, выйти?</NavLink>
-                </li>
-                :
-                <li className="nav-item">
-                  <NavLink to="/login" className="nav-link">Login</NavLink>
-                  <NavLink to="/signup" className="nav-link">Signup</NavLink>
-                </li>
-                }
+      </NavLink>
+      <Nav className="me-auto">
+        <NavLink to="/" className="nav-link">Посты</NavLink>
+        <NavLink to="/market" className="nav-link">Товары</NavLink>
+        <NavLink to="/groups" className="nav-link">Группы</NavLink>
+        <NavLink to="/contact" className="nav-link">Контакты</NavLink>
+      </Nav>
+      <Nav className="ml-2">
+        {isAuth.isUser
+                  ?
+                  <>
+                  <li className="nav-item">
+                      <NavLink onClick={logout} className="nav-link">{isAuth.username}, выйти?</NavLink>
+                  </li>
+                  <li className="nav-item"> 
+                    <NavLink to='/cart' className="nav-link" style={cart ? {color: 'red'} : {color: 'blue'}} ><ShoppingCartIcon/></NavLink>
+                  </li>
+                  </>
+                  :
+                    <>
+                    <li className="nav-item">
+                        <NavLink to="/login" className="nav-link">Login</NavLink>
+                    </li>
+                        <li><NavLink to="/signup" className="nav-link">Signup</NavLink></li>
+                    </>
+                  }
+        </Nav>
+      </Container>
+    </Navbar>
 
-                
-          </ul>
-        </div>
-      </nav>
+
+
+           
 
   )
 }

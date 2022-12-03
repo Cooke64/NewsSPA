@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route, Routes,  } from 'react-router-dom'
+
 import Layout from '../components/Layout'
 import Posts from "../pages/Posts";
 import Contact from "../pages/Contact";
@@ -14,6 +15,8 @@ import Groups from './Groups';
 import UserPage from './MarketPage';
 import MarketPage from './MarketPage';
 import Cart from './Cart';
+import GoodsDetail from 'components/GoodsDetail';
+
 
 export default function ApprRoutes () {
 
@@ -28,6 +31,7 @@ export default function ApprRoutes () {
           <Route path="/post/:id" element={<CurrentPost />} />
           <Route path="/groups" element={<Groups />} />
           <Route path="/market" element={<MarketPage />} />
+          <Route path="/market/:name/" element={<GoodsDetail />} />
           <Route path="/cart" element={<Cart />} />
   
           {/* Protected urls */}
